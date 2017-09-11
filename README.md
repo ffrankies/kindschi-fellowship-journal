@@ -9,7 +9,15 @@
 - [Week 1](#week-1)
     - [Major Happenings](#major-happenings-1)
     - [Roadblocks](#roadblocks-1)
-    - [Questions](#questions-1)
+    - [Prospective](#prospective)
+- [Week 2](#week-2)
+    - [Major Happenings](#major-happenings-2)
+    - [Roadblocks](#roadblocks-2)
+    - [Prospective](#prospective-1)
+- [Week 3](#week-3)
+    - [Major Happenings](#major-happenings-3)
+    - [Roadblocks](#roadblocks-3)
+    - [Prospective](#prospective-2)
 
 <!-- /TOC -->
 
@@ -54,7 +62,7 @@
 - When attempting to have the RNN learn where to put spaces, the RNN never once output a space token, despite it being the most common token in both the training and output data.
 - It seems that the RNN API does not convert data to one-hot vectors automatically, like I thought it would. I may have to do that step manually. The good news is that this step may help with my text generation problem.
 
-### Questions
+### Prospective
 
 - Is learning to use the tensorboard feature going to take a long time? And would it help me diagnose problems earlier?
 - For the main Kindschi Fellowship project, how do we judge the success of the network? We can't really test it in a real-life scenario, so we might not actually know how useful this is.
@@ -72,6 +80,28 @@
 
 - Using one-hot vectors with the tensorflow API without adding dimensions to tensors proved challenging. Luckily, with the embedding layer, the one-hot vectors were simulated instead of actually implemented.
 
-### Questions
+### Prospective
 
-- We need to find a way to make the RNN code less coupled from its current implementation, so that it could be readily used for the new dataset. 
+- Need to find a way to make the RNN code less coupled from its current implementation, so that it could be readily used for the new dataset. 
+
+## Week 3
+
+### Major Happenings
+
+- Installed [ray](http://ray.readthedocs.io/en/latest/install-on-ubuntu.html) on my laptop to enable saving of tensorflow variable weights.
+- Added functionality to save and load weights from a trained model.
+- Installed [tensorflow-tensorboard](https://www.tensorflow.org/get_started/summaries_and_tensorboard) to enable visualization of the tensorflow graph, as well as variable summaries.
+- Added functionality for tensorboard to display the tensorboard graph, and some variable summaries.
+- Added an accuracy tensorflow operation to measure the accuracy of the model (as opposed to just the cross-entropy loss, which was the case before this change).
+
+### Roadblocks
+
+- I first attempted to save and load weights with the `tensorflow.Saver()` object, but kept running into an error where, after loading the previously saved graph, all previously saved changes would be lost during training.
+- I could not solve the above problem, and ended up using a third-party tool (ray) for saving and loading tensorflow weights. 
+- I had the wrong tensorflow version for use with tensorboard, which caused errors when trying to visualize variable summaries until I upgraded tensorflow to version 1.3.0.
+- I had to install `tensorflow-tensorboard` using pip, which shouldn't have been the case according to tensorflow's docs. This may have been fixed after upgrading tensorflow, but I'm not keen on fixing what isn't broken.
+
+### Prospective
+
+- The RNN model should now be ready for training on a larger dataset - waiting on `Seawolf` in order to do that.
+- In the mean time, the model can be further improved with more layers, a YAML config file for storing settings (as opposed to command-line arguments, since there are so many configurable options), and making it more general-purpose (currently a lot of minor configuration changes would break it).
