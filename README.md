@@ -18,6 +18,10 @@
     - [Major Happenings](#major-happenings-3)
     - [Roadblocks](#roadblocks-3)
     - [Prospective](#prospective-2)
+- [Week 4](#week-4)
+    - [Major Happenings](#major-happenings-4)
+    - [Roadblocks](#roadblocks-4)
+    - [Prospective](#prospective-3)
 
 <!-- /TOC -->
 
@@ -105,3 +109,24 @@
 
 - The RNN model should now be ready for training on a larger dataset - waiting on `Seawolf` in order to do that.
 - In the mean time, the model can be further improved with more layers, a YAML config file for storing settings (as opposed to command-line arguments, since there are so many configurable options), and making it more general-purpose (currently a lot of minor configuration changes would break it).
+
+## Week 4
+
+### Major Happenings
+
+- Made datasets more regular (same start and end tokens as opposed to different ones for every type of dataset, etc.)
+- Added functionality to create character-level datasets.
+- Added functionality to use YAML config files instead of passing in all the command-line arguments.
+  - Config files are stored on disk, which allows for easy re-use, and makes it easy to check what configuration was used when disseminating the fellowship results.
+
+### Roadblocks
+
+- Character-level datasets ended up taking much more space than I thought they would. I had to reduce the number of stories used from over 8000 to approximately 7500 for them to be able to be hosted on GitHub.
+- I'm not entirely sure that the RNN can train on these new datasets yet - will have to make sure of that in the next week.
+
+### Prospective
+
+- I don't have a way to read non-csv data files yet. I'll have to implement that when I find out what kind of dataset I'll be using.
+- There's the problem of seemingly concurrent training when more than one RNNModel object is present in the same script. I will have to find a work-around for that. This is so that each 'run' will contain a certain number of epochs, after which the model saves its weights. It's either that, or create a more complex Saver object that will take care of the 'run' management.
+  - Currently, the epochs are being ignored altogether, and the model only saves its weights after it has completed all the epochs that were requested.
+- I'm not sure that my dataset can handle integer values correctly yet. Just like in the character dataset, there will be no need for an embedding layer in the integer dataset.
