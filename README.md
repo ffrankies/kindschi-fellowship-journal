@@ -22,6 +22,10 @@
     - [Major Happenings](#major-happenings-4)
     - [Roadblocks](#roadblocks-4)
     - [Prospective](#prospective-3)
+- [Week 5](#week-5)
+    - [Major Happenings](#major-happenings-5)
+    - [Roadblocks](#roadblocks-5)
+    - [Prospective](#prospective-4)
 
 <!-- /TOC -->
 
@@ -130,3 +134,25 @@
 - There's the problem of seemingly concurrent training when more than one RNNModel object is present in the same script. I will have to find a work-around for that. This is so that each 'run' will contain a certain number of epochs, after which the model saves its weights. It's either that, or create a more complex Saver object that will take care of the 'run' management.
   - Currently, the epochs are being ignored altogether, and the model only saves its weights after it has completed all the epochs that were requested.
 - I'm not sure that my dataset can handle integer values correctly yet. Just like in the character dataset, there will be no need for an embedding layer in the integer dataset.
+
+## Week 5
+
+### Major Happenings
+
+- Added a shell script that uses config files to generate a bunch of text datasets. 
+- Added more meta-info to the saved datasets, for easier saving/loading inside a model.
+- Code refactoring.
+- Attempted to use new datasets to generate sentences.
+
+### Roadblocks
+
+- Generated sentences with the new dataset tend to be biased towards UNKNOWN_TOKENS, repeat words.
+- When looking at the characters in my character-level datasets, I see a lot of characters in the 'extended ASCII codes' category. This suggests I either have some garbage input, some input in non-English languages, or a lot of input with weird formatting issues, which needs to somehow be cleaned up.
+- I noticed that the way I create batches in my datasets doesn't work very well. They lose the essence/meaning of the 'start' and 'end' tokens, since the batches no longer start and end with them.
+
+### Prospective
+
+- I need to find a way to clean the training data without getting rid of a large chunk of my data.
+- Creating batches will cause more overhead, and more 'meaningless' data because the batches will have to be padded.
+- There is a minor dilemma in choosing which token to use to batch the data. Currently, I am using the 'end token', although a case can be made for creating another special token used exclusively for batches.
+- The data for my Kindschi research itself will be available soon.
