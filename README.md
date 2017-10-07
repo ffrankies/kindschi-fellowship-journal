@@ -30,6 +30,10 @@
     - [Major Happenings](#major-happenings-6)
     - [Roadblocks](#roadblocks-6)
     - [Prospective](#prospective-5)
+- [Week 7](#week-7)
+    - [Major Happenings](#major-happenings-7)
+    - [Roadblocks](#roadblocks-7)
+    - [Prospective](#prospective-6)
 
 <!-- /TOC -->
 
@@ -177,3 +181,20 @@
 
 - Re-formatting the data could take a while. There's also the question of the time-steps to take into account. Do I look at the data in terms of days, in terms of hours, or just in terms of number of movements?
 - I might want to change the RNN type I use to a dynamic rnn, to allow for batches with different sizes.
+
+## Week 7
+
+### Major Happenings
+
+- The RNN now trains with the new batches.
+- May have figured out a simple way to ignore 'unknown' tokens in the input - either exclude them in the argmax operation, or, if randomizing the output, do a softmax on the probabilities that don't include the unknown token (which will be easy because the unknown token is always last).
+
+### Roadblocks
+
+- Python list to numpy array conversions isn't pretty.
+- Training is much, much slower with the new batches. Can't tell if it's the batches themselves, or all the padding.
+- Trying to use the dynamic rnn throws out an error on input tensor shape, even though it seems to be the correct shape. (It complains that the tensor is of rank 2, when it is actually of rank 3).
+
+### Prospective
+
+- Operations on tensors with more than two dimensions are hard to visualize, which slows down my understanding of what the network is doing. I might be worth it to do some practive with 3d and 4d tensor operations by hand.
