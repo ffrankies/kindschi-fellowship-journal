@@ -26,6 +26,10 @@
     - [Major Happenings](#major-happenings-5)
     - [Roadblocks](#roadblocks-5)
     - [Prospective](#prospective-4)
+- [Week 6](#week-6)
+    - [Major Happenings](#major-happenings-6)
+    - [Roadblocks](#roadblocks-6)
+    - [Prospective](#prospective-5)
 
 <!-- /TOC -->
 
@@ -156,3 +160,20 @@
 - Creating batches will cause more overhead, and more 'meaningless' data because the batches will have to be padded.
 - There is a minor dilemma in choosing which token to use to batch the data. Currently, I am using the 'end token', although a case can be made for creating another special token used exclusively for batches.
 - The data for my Kindschi research itself will be available soon.
+
+## Week 6
+
+### Major Happenings
+
+- Created a batchmaker file that converts training data into batches.
+- Got a look at sample data for my research. It seems straightforward, but will need to be re-formatted for it to work with the model.
+- Got more ideas on how to measure the accuracy of the network.
+
+### Roadblocks
+
+- The batchmaker does not work with the network yet - it'll have to be adjusted to work with the new batches.
+
+### Prospective
+
+- Re-formatting the data could take a while. There's also the question of the time-steps to take into account. Do I look at the data in terms of days, in terms of hours, or just in terms of number of movements?
+- I might want to change the RNN type I use to a dynamic rnn, to allow for batches with different sizes.
