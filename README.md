@@ -34,6 +34,10 @@
     - [Major Happenings](#major-happenings-7)
     - [Roadblocks](#roadblocks-7)
     - [Prospective](#prospective-6)
+- [Week 8](#week-8)
+    - [Major Happenings](#major-happenings-8)
+    - [Roadblocks](#roadblocks-8)
+    - [Prospective](#prospective-7)
 
 <!-- /TOC -->
 
@@ -192,7 +196,7 @@
 
 ### Roadblocks
 
-- tensorflow seems to sometimes treat lists as a single object, rather an as an array. Had to convert batches to numpy arrays to get it working.
+- Tensorflow seems to sometimes treat lists as a single object, rather an as an array. Had to convert batches to numpy arrays to get it working.
 - Training seems slower with the new batches. Can't tell if it's the batches themselves, or all the padding.
 - Trying to use the dynamic rnn throws out an error on input tensor shape, even though it seems to be the correct shape. (It complains that the tensor is of rank 2, when it is actually of rank 3).
 
@@ -201,3 +205,30 @@
 - Operations on tensors with more than two dimensions are hard to visualize, which slows down my understanding of what the network is doing. I might be worth it to do some practive with 3d and 4d tensor operations by hand.
 - It might be worthwhile to benchmark the RNN using the GPU on seawolf to find the parameters that make training fastest, and then use those from here on out.
 - I should make the RNN code into a standalone repo, so that I can reuse it in other projects.
+
+## Week 8
+
+### Major Happenings
+
+- Got the dynamic RNN api to work by moving a call to `tf.unstack`.
+- Ran multiple benchmarking scripts to find the optimal batch size and sequence length for optimal training time.
+    - Training time with respect to both batch size and sequence length appears to be parabolic in shape.
+        - So far, the optimal batch size was 500 (in a dataset with 1000 examples)
+        - The optimal sequence length was between 10 and 15
+    - Fastest training time was about 1:14 minutes for 1000 examples for 100 epochs (or, ~100000 examples for 1 epoch).
+- Started on a script that converts the synthetic data into a sequence dataset.
+    - Can probably make 3 kinds of sequences out of it:
+        - Divide day into `x` chunks. Increment chunk time, keep same location if no hope made, else append new location.
+        - Ignore time altogether, only represents hops made.
+        - Try to make the network guess the location AND timing and number of hops.
+- Fixed an error in batch creation where the batch isn't vertically padded (when there aren't enough examples to reach size of batch).
+
+### Roadblocks
+
+- Because tmux works in the same directory as my code, I caused my benchmark scripts to fail multiple times by editing the RNN code while the benchmark script was running.
+    - Will probably be fixed if the RNN code is made into a submodule.
+
+### Prospective
+
+- Need to tweak my accuracy-producing code.
+- Code may be further refactored to make the model simpler and more flexible.
