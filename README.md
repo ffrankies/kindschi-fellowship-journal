@@ -187,14 +187,17 @@
 ### Major Happenings
 
 - The RNN now trains with the new batches.
-- May have figured out a simple way to ignore 'unknown' tokens in the input - either exclude them in the argmax operation, or, if randomizing the output, do a softmax on the probabilities that don't include the unknown token (which will be easy because the unknown token is always last).
+- May have figured out a simple way to ignore 'unknown' tokens in the input - either exclude them in the argmax operation, or, if randomizing the output, do a softmax on the probabilities that don't include the unknown token (which will be easy because the unknown token is always last). 
+- Wrote tests in `pytest` for the batchmaker, because it's all python (no tensorflow stuff), and its errors could be hard to catch later on.
 
 ### Roadblocks
 
-- Python list to numpy array conversions isn't pretty.
-- Training is much, much slower with the new batches. Can't tell if it's the batches themselves, or all the padding.
+- tensorflow seems to sometimes treat lists as a single object, rather an as an array. Had to convert batches to numpy arrays to get it working.
+- Training seems slower with the new batches. Can't tell if it's the batches themselves, or all the padding.
 - Trying to use the dynamic rnn throws out an error on input tensor shape, even though it seems to be the correct shape. (It complains that the tensor is of rank 2, when it is actually of rank 3).
 
 ### Prospective
 
 - Operations on tensors with more than two dimensions are hard to visualize, which slows down my understanding of what the network is doing. I might be worth it to do some practive with 3d and 4d tensor operations by hand.
+- It might be worthwhile to benchmark the RNN using the GPU on seawolf to find the parameters that make training fastest, and then use those from here on out.
+- I should make the RNN code into a standalone repo, so that I can reuse it in other projects.
