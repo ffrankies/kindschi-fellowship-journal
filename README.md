@@ -38,6 +38,10 @@
     - [Major Happenings](#major-happenings-8)
     - [Roadblocks](#roadblocks-8)
     - [Prospective](#prospective-7)
+- [Week 9](#week-9)
+    - [Major Happenings](#major-happenings-9)
+    - [Roadblocks](#roadblocks-9)
+    - [Prospective](#prospective-8)
 
 <!-- /TOC -->
 
@@ -232,3 +236,26 @@
 
 - Need to tweak my accuracy-producing code.
 - Code may be further refactored to make the model simpler and more flexible.
+- A genetic algorithm could be used to select the optimal hyperparameters to train the model.
+
+## Week 9
+
+### Major Happenings
+
+- Moved the RNN code into its own repo on github
+- Created 4 trainable datasets from the synthetic data
+    - 200, 10000, 100000, and 318256 examples
+- Added multiple RNN layers
+- Added dropout after each layer
+
+### Roadblocks
+
+- On smaller datasets, the RNN seems to have trouble learning hops (timesteps it displays are all the same)
+- Using a genetic algorithm could prove to be more difficult than I had thought
+
+### Prospective
+
+- Need to partition data into training, validation and testing partitions.
+    - Can use cross-validation to make up for not having a large enough dataset.
+- The genetic algorithm should be pushed back until I get the accuracy code implemented.
+- Need to get the accuracy implemented soon so I can start collecting data.
