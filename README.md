@@ -42,6 +42,10 @@
     - [Major Happenings](#major-happenings-9)
     - [Roadblocks](#roadblocks-9)
     - [Prospective](#prospective-8)
+- [Week 10](#week-10)
+    - [Major Happenings](#major-happenings-10)
+    - [Roadblocks](#roadblocks-10)
+    - [Prospective](#prospective-9)
 
 <!-- /TOC -->
 
@@ -259,3 +263,26 @@
     - Can use cross-validation to make up for not having a large enough dataset.
 - The genetic algorithm should be pushed back until I get the accuracy code implemented.
 - Need to get the accuracy implemented soon so I can start collecting data.
+
+## Week 10
+
+### Major Happenings
+
+- Added code to break the dataset down into training, validation and testing partitions
+    - 10% of entire dataset goes into the testing partition
+        - The testing partition isn't actually used by my code yet
+    - Rest of dataset broken down into 10 partitions for cross-validation
+- Tweaked RNN code to make cross-validation work
+
+### Roadblocks
+
+- Spent way too much time trying to track down and fix an off-by-one error
+- The testing partition isn't currently being used
+- Shuffling a large enough dataset may end up being computationally costly (done to prevent the test partition from inheriting the ordering from the dataset)
+- There are now essentially 10 epochs for every actual epoch (since training goes over 9/10th of the non-testing data 10 times in every epoch)
+
+### Prospective
+
+- It may be prudent to feed the predictions and labels into separate placeholders when calculating the accuracy. This way, cross-validation won't cause weird tensorboard output.
+    - This would also mean that these calculations can be done on the GPU instead of on the CPU, which would save time (probably).
+- Still need to calculate accuracy...
