@@ -110,7 +110,7 @@
 
 ### Prospective
 
-- Need to find a way to make the RNN code less coupled from its current implementation, so that it could be readily used for the new dataset. 
+- Need to find a way to make the RNN code less coupled from its current implementation, so that it could be readily used for the new dataset.
 
 ## Week 3
 
@@ -125,7 +125,7 @@
 ### Roadblocks
 
 - I first attempted to save and load weights with the `tensorflow.Saver()` object, but kept running into an error where, after loading the previously saved graph, all previously saved changes would be lost during training.
-- I could not solve the above problem, and ended up using a third-party tool (ray) for saving and loading tensorflow weights. 
+- I could not solve the above problem, and ended up using a third-party tool (ray) for saving and loading tensorflow weights.
 - I had the wrong tensorflow version for use with tensorboard, which caused errors when trying to visualize variable summaries until I upgraded tensorflow to version 1.3.0.
 - I had to install `tensorflow-tensorboard` using pip, which shouldn't have been the case according to tensorflow's docs. This may have been fixed after upgrading tensorflow, but I'm not keen on fixing what isn't broken.
 
@@ -159,7 +159,7 @@
 
 ### Major Happenings
 
-- Added a shell script that uses config files to generate a bunch of text datasets. 
+- Added a shell script that uses config files to generate a bunch of text datasets.
 - Added more meta-info to the saved datasets, for easier saving/loading inside a model.
 - Code refactoring.
 - Attempted to use new datasets to generate sentences.
@@ -199,7 +199,7 @@
 ### Major Happenings
 
 - The RNN now trains with the new batches.
-- May have figured out a simple way to ignore 'unknown' tokens in the input - either exclude them in the argmax operation, or, if randomizing the output, do a softmax on the probabilities that don't include the unknown token (which will be easy because the unknown token is always last). 
+- May have figured out a simple way to ignore 'unknown' tokens in the input - either exclude them in the argmax operation, or, if randomizing the output, do a softmax on the probabilities that don't include the unknown token (which will be easy because the unknown token is always last).
 - Wrote tests in `pytest` for the batchmaker, because it's all python (no tensorflow stuff), and its errors could be hard to catch later on.
 
 ### Roadblocks
@@ -213,6 +213,10 @@
 - Operations on tensors with more than two dimensions are hard to visualize, which slows down my understanding of what the network is doing. I might be worth it to do some practive with 3d and 4d tensor operations by hand.
 - It might be worthwhile to benchmark the RNN using the GPU on seawolf to find the parameters that make training fastest, and then use those from here on out.
 - I should make the RNN code into a standalone repo, so that I can reuse it in other projects.
+
+### Resources
+
+- Paper on neural responding machines with RNNs: https://arxiv.org/abs/1503.02364
 
 ## Week 8
 
@@ -242,6 +246,11 @@
 - Code may be further refactored to make the model simpler and more flexible.
 - A genetic algorithm could be used to select the optimal hyperparameters to train the model.
 
+### Resources
+
+- Excerpt of book that includes a high level overview of genetic algorithms: https://goo.gl/KjLRLW
+- A blog with a tutorial on genetic algorithms: https://goo.gl/jHft7W
+
 ## Week 9
 
 ### Major Happenings
@@ -270,7 +279,7 @@
 
 - Added code to break the dataset down into training, validation and testing partitions
     - 10% of entire dataset goes into the testing partition
-        - The testing partition isn't actually used by my code yet
+        - The testing partition is used after training as a definitive performance measure
     - Rest of dataset broken down into 10 partitions for cross-validation
 - Tweaked RNN code to make cross-validation work
 
@@ -286,3 +295,15 @@
 - It may be prudent to feed the predictions and labels into separate placeholders when calculating the accuracy. This way, cross-validation won't cause weird tensorboard output.
     - This would also mean that these calculations can be done on the GPU instead of on the CPU, which would save time (probably).
 - Still need to calculate accuracy...
+
+### Resources
+
+- Paper on early stopping mechanishms: https://goo.gl/eUCQ9Z
+
+## Week 11
+
+### Major Happenings
+
+### Roadblocks
+
+### Prospective
