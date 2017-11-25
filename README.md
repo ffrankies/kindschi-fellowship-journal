@@ -57,6 +57,10 @@
     - [Major Happenings](#major-happenings-12)
     - [Roadblocks](#roadblocks-12)
     - [Prospective](#prospective-11)
+- [Week 13 (November 13 - November 19)](#week-13-november-13---november-19)
+    - [Major Happenings](#major-happenings-13)
+    - [Roadblocks](#roadblocks-13)
+    - [Prospective](#prospective-12)
 
 <!-- /TOC -->
 
@@ -364,3 +368,40 @@
     - Model would have to be saved off after every epoch, not just at the end of training.
 - Because of cross-validation, the training and validation losses don't differ much.
 - Early stopping would be nice - this way I can train the model until it reaches it's best accuracy, rather than until some arbitrary epoch.
+- There's got to be a better way at moving the performance data around the training methods.
+
+## Week 13 (November 13 - November 19)
+
+### Major Happenings
+
+- Got first training results on the synthetic dataset:
+    - Final accuracy: 77.22%
+    - Accuracy highest during the night, lowest in the late afternoon / early evening
+- Added a log-level option that allows seeing debug logs (I had forgotten to implement that earlier)
+- Aggregated performance data now stores data for every epoch, which means it takes up more space (but not nearly as much as the inefficient method from a couple weeks ago).
+- Implemented saving.
+    - Added more metadata, including aggregated performance data for continuity.
+    - Save after every epoch, and at best epoch (depending on accuracy).
+- Performance data now created in 'root' training method, and passed down to the nested functions.
+- Created a simple dataset that uses a 1:2:7 partitioning instead of cross-validation.
+- Implemented a simple early stopping mechanism.
+- Started a new run on full dataset using latest model.
+
+### Roadblocks
+
+- Figuring out a 'nice' structure for saving the model proved to be harder than I thought.
+- Python's inheritance strategies are slightly different from what I was used to, which threw me off for a while.
+- Had to restart the model multiple times because tensorflow crashed. I was actually surprised when the model finished training.
+- The simple early stopping mechanism isn't working as well as I had initially thought.
+
+### Prospective
+
+- A python/bash script that automatically restarts the model when it crashes would be amazing.
+- Perhaps some extra data in the network will help the model predict locations better? Example:
+    - Home locations
+    - Abstract movement patterns
+    - Trip purpose
+    - 'Person' ids
+- On the other hand, maybe if I had intermediate call data, instead of just the ones that involved a change of location, I'd get better accuracies.
+- Making a deeper network may be another solution, but might require extra techniques like neural highways.
+- Using an attention layer may be yet another solution.
