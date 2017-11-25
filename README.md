@@ -34,10 +34,12 @@
     - [Major Happenings](#major-happenings-7)
     - [Roadblocks](#roadblocks-7)
     - [Prospective](#prospective-6)
+    - [Resources](#resources)
 - [Week 8](#week-8)
     - [Major Happenings](#major-happenings-8)
     - [Roadblocks](#roadblocks-8)
     - [Prospective](#prospective-7)
+    - [Resources](#resources-1)
 - [Week 9](#week-9)
     - [Major Happenings](#major-happenings-9)
     - [Roadblocks](#roadblocks-9)
@@ -46,6 +48,11 @@
     - [Major Happenings](#major-happenings-10)
     - [Roadblocks](#roadblocks-10)
     - [Prospective](#prospective-9)
+    - [Resources](#resources-2)
+- [Week 11 (October 30 - November 5)](#week-11-october-30---november-5)
+    - [Major Happenings](#major-happenings-11)
+    - [Roadblocks](#roadblocks-11)
+    - [Prospective](#prospective-10)
 
 <!-- /TOC -->
 
@@ -285,7 +292,7 @@
 
 ### Roadblocks
 
-- Spent way too much time trying to track down and fix an off-by-one error
+- Spent way too much time trying to track down and fix and off-by-one error
 - The testing partition isn't currently being used
 - Shuffling a large enough dataset may end up being computationally costly (done to prevent the test partition from inheriting the ordering from the dataset)
 - There are now essentially 10 epochs for every actual epoch (since training goes over 9/10th of the non-testing data 10 times in every epoch)
@@ -300,10 +307,20 @@
 
 - Paper on early stopping mechanishms: https://goo.gl/eUCQ9Z
 
-## Week 11
+## Week 11 (October 30 - November 5)
 
 ### Major Happenings
 
+- Worked on logging model performance epoch, instead of by minibatch.
+    - Works by aggregating logits and labels for each minibatch, and then feeding those into the loss and accuracy calculation ops.
+- Refactored code for training and creating batches.
+- Added metadata to batches to indicate whether the batch contains data that is the beginning and/or ending of a sequence.
+
 ### Roadblocks
 
+- Project is getting pretty big, finding what needs changing is getting trickier.
+- The whole operation seems pretty inefficient.
+
 ### Prospective
+
+- Some tensorflow tests would be great to make sure the model works as expected.
