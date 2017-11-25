@@ -53,6 +53,10 @@
     - [Major Happenings](#major-happenings-11)
     - [Roadblocks](#roadblocks-11)
     - [Prospective](#prospective-10)
+- [Week 12 (November 6 - November 12)](#week-12-november-6---november-12)
+    - [Major Happenings](#major-happenings-12)
+    - [Roadblocks](#roadblocks-12)
+    - [Prospective](#prospective-11)
 
 <!-- /TOC -->
 
@@ -320,7 +324,43 @@
 
 - Project is getting pretty big, finding what needs changing is getting trickier.
 - The whole operation seems pretty inefficient.
+- I'm getting a pretty convoluted set of tensorflow ops that's hard to read.
 
 ### Prospective
 
 - Some tensorflow tests would be great to make sure the model works as expected.
+
+## Week 12 (November 6 - November 12)
+
+### Major Happenings
+
+- Changed to a more efficient way for calculating performance.
+    - Using an aggregator class, I keep track of average performance data for each minibatch
+    - The averages are then combined for each incoming minibatch
+- Updated some tests to reflect latest batch implementation changes.
+- The model now evaluates performance on the test partition.
+- Added accuracy calculations using a mask.
+    - Loss calculations were refactored to use mask as well.
+- Added pyplot graphs for the performance data, because they're easier to copy/paste and view than tensorboard (and they don't have a problem with un-synched timesteps)
+- Started first run on full dataset.
+
+### Roadblocks
+
+- Turns out the operations from before WERE inefficient: both Python and the GPU ran out of memory while performing the performance evaluation.
+- Somewhere down the line, the code for loading and saving the model weights broke.
+- Tensorboard doesn't like data with un-synched timesteps, so I had to insert an extra epoch at the end to record performance on the test partition.
+- There appears to be a problem with tensorflow on the GPU - training periodically breaks and the entire model has to be restarted.
+    - Error received:
+        ```
+        E tensorflow/stream_executor/cuda/cuda_event.cc:49] Error polling for event status: failed to query event: CUDA_ERROR_LAUNCH_FAILED
+        F tensorflow/core/common_runtime/gpu/gpu_event_mgr.cc:203] Unexpected Event status: 1
+        Aborted (core dumped)
+        ```
+    - Also got segmentation faults a couple of times
+
+### Prospective
+
+- If I get saving and loading to work, then tensorflow crashing won't be as big a problem.
+    - Model would have to be saved off after every epoch, not just at the end of training.
+- Because of cross-validation, the training and validation losses don't differ much.
+- Early stopping would be nice - this way I can train the model until it reaches it's best accuracy, rather than until some arbitrary epoch.
