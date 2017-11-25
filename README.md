@@ -61,6 +61,10 @@
     - [Major Happenings](#major-happenings-13)
     - [Roadblocks](#roadblocks-13)
     - [Prospective](#prospective-12)
+- [Week 13 (November 20 - November 26)](#week-13-november-20---november-26)
+    - [Major Happenings](#major-happenings-14)
+    - [Roadblocks](#roadblocks-14)
+    - [Prospective](#prospective-13)
 
 <!-- /TOC -->
 
@@ -405,3 +409,16 @@
 - On the other hand, maybe if I had intermediate call data, instead of just the ones that involved a change of location, I'd get better accuracies.
 - Making a deeper network may be another solution, but might require extra techniques like neural highways.
 - Using an attention layer may be yet another solution.
+
+## Week 13 (November 20 - November 26)
+
+### Major Happenings
+
+- Finally signed that NDA, so I can use the real D4D data.
+- Generated datasets that include home location as an additional feature.
+
+### Roadblocks
+
+### Prospective
+
+- Looks like I was doing comments wrong, I need to make params and return values into markdown lists for them to display correctly.
