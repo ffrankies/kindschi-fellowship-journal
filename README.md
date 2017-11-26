@@ -416,9 +416,20 @@
 
 - Finally signed that NDA, so I can use the real D4D data.
 - Generated datasets that include home location as an additional feature.
+- Created an abstract model class `RNNBase` that can be extended to give additional features.
+- Created a model class `MultiInputRNN` that works with multiple tokenized inputs.
+- Started a new run on the dataset with home locations using the new model.
 
 ### Roadblocks
+
+- Model from last week stopped training without my notice.
+- RNN with multiple inputs training much slower than with a single input (in terms of the drop in loss, not the time per epoch).
+    - Simply an effect of multiple inputs?
+    - An effect of a larger hidden layer?
+    - Bad network parameters?
 
 ### Prospective
 
 - Looks like I was doing comments wrong, I need to make params and return values into markdown lists for them to display correctly.
+- Might be a good idea to refactor my dataset-producing code into a class or something, to make it easier to create new datasets from it.
+- That genetic algorithms could be very useful indeed here for choosing the network parameters, but there may not be enough time to make one.
